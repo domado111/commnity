@@ -1,0 +1,30 @@
+@charset "UTF-8";
+body{
+	font-family: 'Open Sans', sans-serif;
+	font-size: 12px;
+	min-width: 1200px;
+	position: relative;
+	height: auto;
+	width: auto;
+	color: darkgrey;
+	overflow: auto;
+}
+h1,h2,h3,h4,h5,h6 {font-family: "Oswald"}
+#background_img{
+	 background-image: url('../img/ticket.jpg'); 
+	 background-position: center center;
+	 background-size: cover;			 
+	 height: 450px;
+	 min-height: 450px;
+	 min-width: 1500px;
+}
+a{text-decoration: none;}
+a:hover{border-bottom: 2px solid white;}
+button img:hover{background-color: grey;}
+li{display: inline;}
+*:focus {outline: none;}
+body::-webkit-scrollbar {display: none;}
+button:hover{border-bottom: 2px solid white;}
+#movie_genre:hover{opacity: 0.5;}
+td{border: 1px solid black;}
+th{border: 1px solid black; background-color: tomato; height: 50px; color: white;}

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldg.mybatis.board">
+	<select id="boardList" resultType="Board" parameterType="hashmap">
+		select * from review_board
+		<if test="num != num">
+			WHERE board_num = #{boardnum}
+		</if>
+		<if test="board_id != null">
+			WHERE board_id = #{boardid}
+		</if>
+	</select>
+	
+	<insert id="insertArticle" parameterType="Board">
+		insert into
+		review_board(board_id,board_num,movieNm,movie_grade,writer,email,subject,content,reg_date)
+		values(#{boardid},#{boardnum},#{movieNm},#{movie_grade},#{writer},#{email},#{subject},#{content},sysdate)
+	</insert>
+	
+	<update id="deleteArticle" parameterType="hashmap">
+		delete from
+		review_board where
+		board_num=#{board_num}
+	</update>
+	
+	<update id="updateArticle" parameterType="Board">
+		update review_board set
+		movie_grade=#{movie_grade}, subject=#{subject}, content=#{content}
+		where
+		board_num=#{boardnum}
+	</update>
+	
+	<select id="getArticles" resultType="Board" parameterType="hashmap">
+		select * from
+		(select rownum rnum ,a.* from
+		(select
+		board_num,movieNm,movie_grade,writer,email,subject,readcount,content,reg_date
+		from
+		review_board where board_id = #{boardid, jdbcType=VARCHAR} order by board_num desc) a)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<select id="getArticle" resultType="Board" parameterType="Board">
+		select
+		* from review_board where board_num = #{boardnum} and board_id =
+		#{boardid}
+	</select>
+	
+	<select id="getArticleCount" resultType="int" parameterType="hashmap">
+		select nvl(count(*),0) from review_board
+		<if test="board_id != null">
+			WHERE board_id = #{boardid}
+		</if>
+	</select>
+	
+	<select id="getNextNumber" resultType="int">
+		select boardser.nextval
+		from dual
+	</select>
+	
+	<update id="addReadCount" parameterType="hashmap">
+		update review_board set
+		readcount=readcount+1 where board_num = #{boardnum} and board_id =
+		#{boardid}
+	</update>
+</mapper>

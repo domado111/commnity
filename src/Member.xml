@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ldg.mybatis.member">
+	<insert id="insertMember" parameterType="Member">
+		insert into member
+		values
+		(#{grade},#{name},#{gender},#{email},#{password},#{wish},sysdate)
+	</insert>
+	
+	<delete id="deleteMember" parameterType="Member">
+		delete from member where
+		email=#{email}
+	</delete>
+	
+	<update id="updateMember" parameterType="Member">
+		update member set
+		name=#{name}, password=#{password} where email=#{email}
+	</update>
+	
+	<select id="getMemberList" resultType="Member" parameterType="Member">
+		select * from member order by reg_date
+	</select>
+	
+	<select id="getMember" resultType="Member" parameterType="hashmap">
+		select
+		* from member where email=#{email, jdbcType=INTEGER}
+	</select>
+	
+	<select id="loginCheck" resultType="int" parameterType="hashmap">
+		select
+		COUNT(*) from member where email=#{email} and password=#{password}
+	</select>
+</mapper>

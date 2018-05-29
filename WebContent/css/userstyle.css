@@ -1,0 +1,6 @@
+@charset "UTF-8";
+body{margin: 0; padding: 0;}
+a{text-decoration: none;}
+a:hover{text-decoration: underline;}
+*:focus {outline: none;}
+body::-webkit-scrollbar {display: none;}
